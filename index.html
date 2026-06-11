@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astra Play</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    min-height:100vh;
+}
+
+header{
+    background:#111827;
+    padding:15px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+
+.container{
+    width:95%;
+    max-width:900px;
+    margin:20px auto;
+}
+
+.video-box{
+    background:#1e293b;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 0 20px rgba(0,0,0,.3);
+}
+
+video{
+    width:100%;
+    display:block;
+}
+
+.controls{
+    display:flex;
+    gap:10px;
+    padding:15px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+button,a{
+    border:none;
+    text-decoration:none;
+    cursor:pointer;
+    padding:12px 18px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.download{
+    background:#22c55e;
+    color:white;
+}
+
+.share{
+    background:#3b82f6;
+    color:white;
+}
+
+.fullscreen{
+    background:#f59e0b;
+    color:white;
+}
+
+button:hover,a:hover{
+    transform:scale(1.05);
+}
+
+.info{
+    margin-top:20px;
+    text-align:center;
+    color:#cbd5e1;
+    line-height:1.6;
+}
+
+@media(max-width:600px){
+    button,a{
+        width:100%;
+        text-align:center;
+    }
+
+    header{
+        font-size:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+🚀 Astra Play
+</header>
+
+<div class="container">
+
+    <div class="video-box">
+
+        <video id="videoPlayer" controls poster="">
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support video playback.
+        </video>
+
+        <div class="controls">
+
+            <a class="download" href="video.mp4" download>
+                ⬇ Download
+            </a>
+
+            <button class="share" onclick="shareVideo()">
+                📤 Share
+            </button>
+
+            <button class="fullscreen" onclick="fullscreenVideo()">
+                ⛶ Fullscreen
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="info">
+        Watch and share videos easily with Astra Play.
+    </div>
+
+</div>
+
+<script>
+
+async function shareVideo(){
+
+    const shareData = {
+        title: "Astra Play",
+        text: "Watch this video on Astra Play",
+        url: window.location.href
+    };
+
+    if(navigator.share){
+        try{
+            await navigator.share(shareData);
+        }catch(err){}
+    }else{
+        navigator.clipboard.writeText(window.location.href);
+        alert("Link copied to clipboard!");
+    }
+}
+
+function fullscreenVideo(){
+    const video=document.getElementById("videoPlayer");
+
+    if(video.requestFullscreen){
+        video.requestFullscreen();
+    }else if(video.webkitRequestFullscreen){
+        video.webkitRequestFullscreen();
+    }else if(video.msRequestFullscreen){
+        video.msRequestFullscreen();
+    }
+}
+
+</script>
+
+</body>
+</html>
